@@ -10,6 +10,8 @@ namespace PluggableData {
 				Console.WriteLine(line);
 			}
 
+			Console.WriteLine(service.CoreEndpoint());
+
 			var output2 = service.ExampleQuery(5, "second test");
 			foreach (var line in output2) {
 				Console.WriteLine(line);

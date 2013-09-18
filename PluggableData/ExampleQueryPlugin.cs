@@ -7,6 +7,7 @@ namespace PluggableData {
 	[Export(typeof(IQueryPlugin))]
 	public class ExampleQueryPlugin : IQueryPlugin {
 		public Type[] MethodArgs { get { return new[] { typeof(int), typeof(string) }; } }
+		public IUnitOfWork UnitOfWork { get; set; }
 
 		public dynamic Execute(params object[] args) {
 			//todo: better parameter mapping

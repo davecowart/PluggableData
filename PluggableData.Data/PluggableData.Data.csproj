@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IQueryPlugin.cs" />
+    <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="Query.cs" />
     <Compile Include="Service.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

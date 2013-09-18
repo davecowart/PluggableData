@@ -8,6 +8,8 @@ using System.Reflection;
 
 namespace PluggableData.Data {
 	public class Service {
+		private IUnitOfWork _unitOfWork = new UnitOfWork();
+
 		public Service() {
 			var catalogs = new List<ComposablePartCatalog> { new AssemblyCatalog(Assembly.GetExecutingAssembly()), new AssemblyCatalog(Assembly.GetCallingAssembly()) };
 			var catalog = new AggregateCatalog(catalogs);
@@ -23,7 +25,9 @@ namespace PluggableData.Data {
 		}
 
 		public dynamic ExecuteDynamicEndpoint(Type queryType, params object[] args) {
-			return Queries.Single(q => q.GetType() == queryType).Execute(args);
+			var query = Queries.Single(q => q.GetType() == queryType);
+			query.UnitOfWork = _unitOfWork;
+			return query.Execute(args);
 		}
 	}
 }
