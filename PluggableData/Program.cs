@@ -11,7 +11,7 @@ namespace PluggableData {
 			var pluginOuput1 = service.ExampleQuery(10, "test");
 			var coreOutput = service.CoreEndpoint();
 			var pluginOutput2 = service.ExampleQuery(5, "second test");
-
+			
 			//display results
 			foreach (var line in pluginOuput1) {
 				Console.WriteLine(line);

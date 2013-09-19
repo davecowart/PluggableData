@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.ComponentModel.Composition.Primitives;
-using System.Linq;
 using System.Reflection;
 
 namespace PluggableData.Data {
 	public class Service {
-		private IUnitOfWork _unitOfWork = new UnitOfWork();
+		private readonly IUnitOfWork _unitOfWork = new UnitOfWork();
+
+		public IUnitOfWork UnitOfWork { get { return _unitOfWork; } }
 
 		/// <summary>
 		/// Constructor inspects the executing and calling assemblies to find plugins
@@ -35,18 +35,9 @@ namespace PluggableData.Data {
 		public string CoreEndpoint() {
 			return "this would be how core data access methods are used";
 		}
-
-		/// <summary>
-		/// This method should only be called by a plugin's extension methods
-		/// It's public because it needs to be accessible by various libraries
-		/// </summary>
-		/// <param name="queryType">The type of plugin; used to find the correct plugin from Queries</param>
-		/// <param name="args">The parameters passed in by the extension method</param>
-		/// <returns>The output of the query - properly typed but passed as a dynamic</returns>
-		public dynamic ExecuteDynamicEndpoint(Type queryType, params object[] args) {
-			var query = Queries.Single(q => q.GetType() == queryType);
-			query.UnitOfWork = _unitOfWork;
-			return query.Execute(args);
-		}
 	}
+
+	public interface IUnitOfWork { }
+
+	public class UnitOfWork : IUnitOfWork { 	}
 }

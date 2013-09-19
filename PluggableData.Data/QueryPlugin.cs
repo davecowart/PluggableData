@@ -4,6 +4,11 @@ using System.Linq;
 using System.Reflection;
 
 namespace PluggableData.Data {
+	public interface IQueryPlugin {
+		IUnitOfWork UnitOfWork { set; }
+		dynamic Execute(params object[] args);
+	}
+
 	public abstract class QueryPlugin : IQueryPlugin {
 		public IUnitOfWork UnitOfWork { get; set; }
 		protected abstract dynamic ExecutePlugin(params object[] args);
@@ -33,7 +38,7 @@ namespace PluggableData.Data {
 		/// <param name="extensionMethod">The extension method defined as part of the plugin</param>
 		/// <param name="args">The parameters passed into the extension method</param>
 		/// <returns></returns>
-		protected ExpandoObject MapParameters(MethodInfo extensionMethod, params object[] args) {
+		protected static ExpandoObject MapParameters(MethodInfo extensionMethod, params object[] args) {
 			var expando = new ExpandoObject() as IDictionary<string, object>;
 			var parameters = GetParameters(extensionMethod);
 			for (var i = 0; i < args.Length; i++) {

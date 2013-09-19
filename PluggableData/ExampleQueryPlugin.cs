@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using ExtensionMethods;
 using PluggableData.Data;
 
 namespace PluggableData {
@@ -14,10 +15,11 @@ namespace PluggableData {
 		/// <param name="args">Parameters passed in by the extension method defined below</param>
 		/// <returns>The result of the query - properly typed but passed as a dynamic</returns>
 		protected override dynamic ExecutePlugin(params object[] args) {
+			// normally this would execute the query against the db
 			dynamic parameters = MapParameters(typeof(ServiceExtensions).GetMethod("ExampleQuery"), args);
 			var list = new List<string>();
 			for (var i = 0; i < parameters.count; i++) {
-				list.Add(parameters.output);
+				list.Add(parameters.output); // you don't get Intellisence on the dynamic parameters object, but it's better than (int)args[0] (and hoping the order didn't change while you weren't looking)
 			}
 			return list;
 		}

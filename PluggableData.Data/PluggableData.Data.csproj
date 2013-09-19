@@ -41,9 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions.cs" />
     <Compile Include="IQueryPlugin.cs" />
-    <Compile Include="IUnitOfWork.cs" />
-    <Compile Include="Query.cs" />
     <Compile Include="QueryPlugin.cs" />
     <Compile Include="Service.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
